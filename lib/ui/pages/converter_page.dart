@@ -1,5 +1,6 @@
-import 'package:direct_select/direct_select.dart';
 import 'package:flutter/material.dart';
+
+import 'package:direct_select/direct_select.dart';
 import '../../utils/constants.dart';
 import '../widgets/key_pad.dart';
 import '../widgets/selection_item.dart';
@@ -31,58 +32,74 @@ class _ConverterPageState extends State<ConverterPage> {
   Widget build(BuildContext context) {
     // El siguiente widget en el arbol es el Scaffold
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Currency converter'),
+      backgroundColor: Colors.green[100],
+      appBar: AppBar(
+        leading: const Icon(
+          Icons.currency_exchange,
+          size: 36,
+          color: Colors.yellow,
         ),
-        body: Column(children: [
-          Row(
-            children: [
-              Expanded(
-                // selector para la primera moneda
-                child: DirectSelect(
-                    itemExtent: 45.0,
-                    selectedIndex: currency1,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    onSelectedItemChanged: (index) {
-                      // aquí cambiamos el estado del widget
-                      setState(() {
-                        currency1 = index ?? 0;
-                      });
-                    },
-                    items: _buildItems(),
-                    child: SelectionItem(
-                      isForList: false,
-                      title: currencies[currency1],
-                    )),
-              ),
-              Expanded(
-                // selector para la segunda moneda
-                child: DirectSelect(
-                    itemExtent: 45.0,
-                    selectedIndex: currency2,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    onSelectedItemChanged: (index) {
-                      // aquí cambiamos el estado del widget
-                      setState(() {
-                        currency2 = index ?? 0;
-                      });
-                    },
-                    items: _buildItems(),
-                    child: SelectionItem(
-                      isForList: false,
-                      title: currencies[currency2],
-                    )),
-              ),
-            ],
+        title: const Text(
+          'Currency Converter',
+          style: TextStyle(fontSize: 28),
+        ),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+            child: Row(
+              children: [
+                Expanded(
+                  // selector para la primera moneda
+                  child: DirectSelect(
+                      itemExtent: 45.0,
+                      selectedIndex: currency1,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      onSelectedItemChanged: (index) {
+                        // aquí cambiamos el estado del widget
+                        setState(() {
+                          currency1 = index ?? 0;
+                        });
+                      },
+                      items: _buildItems(),
+                      child: SelectionItem(
+                        isForList: false,
+                        title: currencies[currency1],
+                      )),
+                ),
+                Expanded(
+                  // selector para la segunda moneda
+                  child: DirectSelect(
+                      itemExtent: 45.0,
+                      selectedIndex: currency2,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      onSelectedItemChanged: (index) {
+                        // aquí cambiamos el estado del widget
+                        setState(() {
+                          currency2 = index ?? 0;
+                        });
+                      },
+                      items: _buildItems(),
+                      child: SelectionItem(
+                        isForList: false,
+                        title: currencies[currency2],
+                      )),
+                ),
+              ],
+            ),
           ),
-          const Expanded(
-              // TODO
-              // los nombres de las monedas se pueden obtener en la lista currencies
-              // la tasa de cambio se puede obtener en la estructura de datos rates
-              child: Center(
-            child: Text(
-                'Aquí incluimos el widget KeyPad, mandando los nombres de las dos monedas y la tasa de cambio'),
-          ))
-        ]));
+          Expanded(
+            child: Center(
+              child: KeyPad(
+                  textCurrency1: currencies[currency1],
+                  textCurrency2: currencies[currency2],
+                  rate: rates[currency1][currency2]),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

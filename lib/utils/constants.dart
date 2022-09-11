@@ -8,7 +8,7 @@ const currencies = [
 // en cada lista se tiene el valor de la tasa de cambio de la moneda correspondiente
 // contra las otras dos
 final List<List<double>> rates = [
-  [1.0, 0.00026, 0.00025],
-  [3829, 1.0, .94],
-  [4080, 1.07, 1.0]
+  [1.0, 0.000229727, 0.000226276],
+  [4353.2, 1.0, .984979794],
+  [4419.38, 1.015249253, 1.0]
 ];
